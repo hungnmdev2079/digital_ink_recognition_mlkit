@@ -1,0 +1,111 @@
+PODS:
+  - digital_ink_recognition_mlkit (0.0.1):
+    - Flutter
+    - GoogleMLKit/DigitalInkRecognition (~> 4.0.0)
+  - Flutter (1.0.0)
+  - GoogleDataTransport (9.4.1):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMLKit/DigitalInkRecognition (4.0.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitDigitalInkRecognition (~> 3.0.0)
+  - GoogleMLKit/MLKitCore (4.0.0):
+    - MLKitCommon (~> 9.0.0)
+  - GoogleToolboxForMac/DebugUtils (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - GoogleToolboxForMac/Defines (2.3.2)
+  - GoogleToolboxForMac/Logger (2.3.2):
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSData+zlib (2.3.2)":
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.3.2)":
+    - GoogleToolboxForMac/DebugUtils (= 2.3.2)
+    - GoogleToolboxForMac/Defines (= 2.3.2)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.2)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.3.2)"
+  - GoogleUtilities/Environment (7.13.0):
+    - GoogleUtilities/Privacy
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.13.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (7.13.0)
+  - GoogleUtilities/UserDefaults (7.13.0):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GoogleUtilitiesComponents (1.1.0):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (2.3.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - MLKitCommon (9.0.0):
+    - GoogleDataTransport (~> 9.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - GoogleUtilities/UserDefaults (~> 7.0)
+    - GoogleUtilitiesComponents (~> 1.0)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
+  - MLKitDigitalInkRecognition (3.0.0):
+    - MLKitCommon (~> 9.0)
+    - MLKitMDD (~> 5.0)
+    - SSZipArchive (~> 2.1)
+  - MLKitMDD (5.0.0):
+    - MLKitCommon (~> 9.0)
+  - nanopb (2.30910.0):
+    - nanopb/decode (= 2.30910.0)
+    - nanopb/encode (= 2.30910.0)
+  - nanopb/decode (2.30910.0)
+  - nanopb/encode (2.30910.0)
+  - PromisesObjC (2.4.0)
+  - SSZipArchive (2.4.3)
+
+DEPENDENCIES:
+  - digital_ink_recognition_mlkit (from `.symlinks/plugins/digital_ink_recognition_mlkit/ios`)
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+
+SPEC REPOS:
+  trunk:
+    - GoogleDataTransport
+    - GoogleMLKit
+    - GoogleToolboxForMac
+    - GoogleUtilities
+    - GoogleUtilitiesComponents
+    - GTMSessionFetcher
+    - MLKitCommon
+    - MLKitDigitalInkRecognition
+    - MLKitMDD
+    - nanopb
+    - PromisesObjC
+    - SSZipArchive
+
+EXTERNAL SOURCES:
+  digital_ink_recognition_mlkit:
+    :path: ".symlinks/plugins/digital_ink_recognition_mlkit/ios"
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+
+SPEC CHECKSUMS:
+  digital_ink_recognition_mlkit: 7acdc85f15c7264a6ae97146e2fab65655b00825
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
+  GoogleMLKit: 2bd0dc6253c4d4f227aad460f69215a504b2980e
+  GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
+  GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
+  GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
+  GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
+  integration_test: 13825b8a9334a850581300559b8839134b124670
+  MLKitCommon: c1b791c3e667091918d91bda4bba69a91011e390
+  MLKitDigitalInkRecognition: fa1c9b25de5bc95dc564652d69c51806cf6e139c
+  MLKitMDD: 7d1354990908ae5eb820fceb5381860c12be6d60
+  nanopb: 438bc412db1928dac798aa6fd75726007be04262
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
+
+PODFILE CHECKSUM: ffd70cfb6112fb233ea2663eb4909a784757aa0b
+
+COCOAPODS: 1.14.2
