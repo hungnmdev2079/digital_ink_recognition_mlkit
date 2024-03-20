@@ -87,8 +87,8 @@ public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
             if let contextMap = args["context"] as? [String: Any] {
                 let preContext = contextMap["preContext"] as? String ?? ""
                 let writingAreaMap = contextMap["writingArea"] as? [String: Any]
-                let width = writingAreaMap?["width"] as? Float ?? 0
-                let height = writingAreaMap?["height"] as? Float ?? 0
+                let width = writingAreaMap?["width"] as? Float ?? 0.0
+                let height = writingAreaMap?["height"] as? Float ?? 0.0
                 let writingArea = WritingArea(width: width, height: height)
                 context = DigitalInkRecognitionContext(preContext: preContext, writingArea: writingArea)
             }
@@ -126,7 +126,7 @@ public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
         for candidate in recognitionResult.candidates {
             let dictionary: [String: Any] = [
                 "text": candidate.text,
-                "score": candidate.score?.doubleValue ?? 0
+                "score": candidate.score?.doubleValue ?? 0.0
             ]
             candidates.append(dictionary)
         }
