@@ -70,7 +70,8 @@ class _DigitalInkViewState extends State<DigitalInkView> {
     'ru',
     'zh-Hani',
   ];
-  var _digitalInkRecognizer = DigitalInkRecognizer(languageCode: 'en');
+  late DigitalInkRecognizer _digitalInkRecognizer =
+      DigitalInkRecognizer(languageCode: _language);
   final Ink _ink = Ink();
   List<StrokePoint> _points = [];
   String _recognizedText = '';
