@@ -58,6 +58,7 @@ public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
         if modelManager.isModelDownloaded(model) {
             var recognizer = instances[uid]
             
+            
             if recognizer == nil {
                 let options = DigitalInkRecognizerOptions(model: model)
                 recognizer = DigitalInkRecognizer.digitalInkRecognizer(options: options)
@@ -70,11 +71,12 @@ public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
                 guard let pointsList = strokeMap["points"] as? [[String:Any]] else { continue }
                 var points = [StrokePoint]()
                 for pointMap in pointsList {
-                    guard let x = pointMap["x"] as? Float,
-                          let y = pointMap["y"] as? Float,
-                          let t = pointMap["t"] as? Int64
-                    else { continue }
-                    let strokePoint = StrokePoint(x: x, y: y, t: Int(t))
+                    guard let x = pointMap["x"] as? Float64 ,
+                          let y = pointMap["y"] as? Float64 ,
+                          let t = pointMap["t"] as? Int64 else {
+                        continue
+                    }
+                    let strokePoint = StrokePoint(x: Float(x), y: Float(y), t: Int(t))
                     points.append(strokePoint)
                 }
                 let stroke = Stroke(points: points)
