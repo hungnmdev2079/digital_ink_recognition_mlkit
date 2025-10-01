@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath("com.android.tools.build:gradle:8.7.0")
     }
 }
 
@@ -19,40 +19,23 @@ rootProject.allprojects {
     }
 }
 
-apply plugin: 'com.android.library'
+apply plugin: "com.android.library"
 
 android {
-    if (project.android.hasProperty("namespace")) {
-        namespace 'com.hungnm.digital_ink_recognition_mlkit'
-    }
+    namespace = "com.google_mlkit_digital_ink_recognition"
 
-    compileSdkVersion 33
+    compileSdk = 35
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdk = 21
     }
 
     dependencies {
-        testImplementation 'junit:junit:4.13.2'
-        testImplementation 'org.mockito:mockito-core:5.0.0'
+        implementation 'com.google.mlkit:digital-ink-recognition:19.0.0'
     }
-
-    testOptions {
-        unitTests.all {
-            testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
-            }
-        }
-    }
-}
-
-dependencies {
-    implementation 'com.google.mlkit:digital-ink-recognition:18.1.0'
 }

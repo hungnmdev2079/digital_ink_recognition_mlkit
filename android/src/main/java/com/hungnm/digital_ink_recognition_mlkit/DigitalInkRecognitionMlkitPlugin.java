@@ -5,16 +5,16 @@ import androidx.annotation.NonNull;
 import com.google.mlkit.common.MlKitException;
 import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.common.model.RemoteModelManager;
-import com.google.mlkit.vision.digitalink.DigitalInkRecognition;
-import com.google.mlkit.vision.digitalink.DigitalInkRecognitionModel;
-import com.google.mlkit.vision.digitalink.DigitalInkRecognitionModelIdentifier;
-import com.google.mlkit.vision.digitalink.DigitalInkRecognizer;
-import com.google.mlkit.vision.digitalink.DigitalInkRecognizerOptions;
-import com.google.mlkit.vision.digitalink.Ink;
-import com.google.mlkit.vision.digitalink.RecognitionCandidate;
-import com.google.mlkit.vision.digitalink.RecognitionContext;
-import com.google.mlkit.vision.digitalink.RecognitionResult;
-import com.google.mlkit.vision.digitalink.WritingArea;
+import com.google.mlkit.vision.digitalink.common.RecognitionCandidate;
+import com.google.mlkit.vision.digitalink.common.RecognitionResult;
+import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognition;
+import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognitionModel;
+import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognitionModelIdentifier;
+import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognizer;
+import com.google.mlkit.vision.digitalink.recognition.DigitalInkRecognizerOptions;
+import com.google.mlkit.vision.digitalink.recognition.Ink;
+import com.google.mlkit.vision.digitalink.recognition.RecognitionContext;
+import com.google.mlkit.vision.digitalink.recognition.WritingArea;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,22 +80,21 @@ public class DigitalInkRecognitionMlkitPlugin implements FlutterPlugin, MethodCa
     DigitalInkRecognitionModel model = getModel(tag, result);
     if (model == null) return;
     remoteModelManager.isModelDownloaded(model).addOnSuccessListener(isDownloaded -> {
-      if(isDownloaded){
-      }else{
-        result.error("Model Error", "Model has not been downloaded yet ", null);
-      }
+        if (!isDownloaded) {
+          result.error("Model Error", "Model has not been downloaded yet ", null);
+        }
     });
 
     String id = call.argument("id");
-    com.google.mlkit.vision.digitalink.DigitalInkRecognizer recognizer = instances.get(id);
+    DigitalInkRecognizer recognizer = instances.get(id);
     if (recognizer == null) {
       recognizer = DigitalInkRecognition.getClient(DigitalInkRecognizerOptions.builder(model).build());
       instances.put(id, recognizer);
     }
 
     Map<String, Object> inkMap = call.argument("ink");
-    List<Map<String, Object>> strokeList = (List<Map<String, Object>>) inkMap.get("strokes");
-    Ink.Builder inkBuilder = Ink.builder();
+      List<Map<String, Object>> strokeList = (List<Map<String, Object>>) inkMap.get("strokes");
+      Ink.Builder inkBuilder = Ink.builder();
     for (final Map<String, Object> strokeMap : strokeList) {
       Ink.Stroke.Builder strokeBuilder = Ink.Stroke.builder();
       List<Map<String, Object>> pointsList = (List<Map<String, Object>>) strokeMap.get("points");
@@ -164,7 +163,7 @@ public class DigitalInkRecognitionMlkitPlugin implements FlutterPlugin, MethodCa
 
   private void closeDetector(MethodCall call) {
     String id = call.argument("id");
-    com.google.mlkit.vision.digitalink.DigitalInkRecognizer recognizer = instances.get(id);
+    DigitalInkRecognizer recognizer = instances.get(id);
     if (recognizer == null) return;
     recognizer.close();
     instances.remove(id);

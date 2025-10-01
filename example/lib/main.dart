@@ -17,8 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
-  final _digitalInkRecognitionMlkitPlugin =
-      DigitalInkRecognizer(languageCode: 'ja');
+  final _digitalInkRecognitionMlkitPlugin = DigitalInkRecognizer(languageCode: 'ja');
 
   late AnimationController animationController;
   late Animation<double> animation;
@@ -26,8 +25,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     animation = Tween<double>(begin: 0, end: 1).animate(animationController);
     animationController.repeat();
   }
@@ -45,13 +43,15 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: DigitalInkView(),
     );
   }
 }
 
 class DigitalInkView extends StatefulWidget {
+  const DigitalInkView({super.key});
+
   @override
   State<DigitalInkView> createState() => _DigitalInkViewState();
 }
@@ -70,8 +70,7 @@ class _DigitalInkViewState extends State<DigitalInkView> {
     'ru',
     'zh-Hani',
   ];
-  late DigitalInkRecognizer _digitalInkRecognizer =
-      DigitalInkRecognizer(languageCode: _language);
+  late DigitalInkRecognizer _digitalInkRecognizer = DigitalInkRecognizer(languageCode: _language);
   final Ink _ink = Ink();
   List<StrokePoint> _points = [];
   String _recognizedText = '';
@@ -85,41 +84,41 @@ class _DigitalInkViewState extends State<DigitalInkView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Digital Ink Recognition')),
+      appBar: AppBar(title: const Text('Digital Ink Recognition')),
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildDropdown(),
                   ElevatedButton(
                     onPressed: _downloadModel,
-                    child: Icon(Icons.download),
+                    child: const Icon(Icons.download),
                   ),
                   ElevatedButton(
                     onPressed: _deleteModel,
-                    child: Icon(Icons.delete),
+                    child: const Icon(Icons.delete),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
                     onPressed: _recogniseText,
-                    child: Text('Read Text'),
+                    child: const Text('Read Text'),
                   ),
                   ElevatedButton(
                     onPressed: _clearPad,
-                    child: Text('Clear Pad'),
+                    child: const Text('Clear Pad'),
                   ),
                 ],
               ),
@@ -132,8 +131,7 @@ class _DigitalInkViewState extends State<DigitalInkView> {
                 onPanUpdate: (DragUpdateDetails details) {
                   setState(() {
                     final RenderObject? object = context.findRenderObject();
-                    final localPosition = (object as RenderBox?)
-                        ?.globalToLocal(details.localPosition);
+                    final localPosition = (object as RenderBox?)?.globalToLocal(details.localPosition);
                     if (localPosition != null) {
                       _points = List.from(_points)
                         ..add(StrokePoint(
@@ -160,7 +158,7 @@ class _DigitalInkViewState extends State<DigitalInkView> {
             if (_recognizedText.isNotEmpty)
               Text(
                 'Candidates: $_recognizedText',
-                style: TextStyle(fontSize: 23),
+                style: const TextStyle(fontSize: 23),
               ),
           ],
         ),
@@ -182,8 +180,7 @@ class _DigitalInkViewState extends State<DigitalInkView> {
             setState(() {
               _language = lang;
               _digitalInkRecognizer.close();
-              _digitalInkRecognizer =
-                  DigitalInkRecognizer(languageCode: _language);
+              _digitalInkRecognizer = DigitalInkRecognizer(languageCode: _language);
             });
           }
         },
@@ -204,21 +201,17 @@ class _DigitalInkViewState extends State<DigitalInkView> {
   }
 
   Future<void> _deleteModel() async {
-    _digitalInkRecognizer
-        .deleteModel()
-        .then((value) => value ? 'success' : 'failed');
+    _digitalInkRecognizer.deleteModel().then((value) => value ? 'success' : 'failed');
   }
 
   Future<void> _downloadModel() async {
-    _digitalInkRecognizer
-        .downLoadModel()
-        .then((value) => value ? 'success' : 'failed');
+    _digitalInkRecognizer.downLoadModel().then((value) => value ? 'success' : 'failed');
   }
 
   Future<void> _recogniseText() async {
     showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (context) => const AlertDialog(
               title: Text('Recognizing'),
             ),
         barrierDismissible: true);
@@ -254,8 +247,7 @@ class Signature extends CustomPainter {
       for (int i = 0; i < stroke.points.length - 1; i++) {
         final p1 = stroke.points[i];
         final p2 = stroke.points[i + 1];
-        canvas.drawLine(Offset(p1.x.toDouble(), p1.y.toDouble()),
-            Offset(p2.x.toDouble(), p2.y.toDouble()), paint);
+        canvas.drawLine(Offset(p1.x.toDouble(), p1.y.toDouble()), Offset(p2.x.toDouble(), p2.y.toDouble()), paint);
       }
     }
   }
