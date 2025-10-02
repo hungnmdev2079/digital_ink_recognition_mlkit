@@ -9,3 +9,7 @@
 ## 0.0.5
 
 * Fix Android 16kb page and ios version
+
+## 0.0.6
+
+* Fix ios
