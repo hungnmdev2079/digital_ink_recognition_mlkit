@@ -13,3 +13,7 @@
 ## 0.0.6
 
 * Fix ios
+
+## 0.0.7
+
+* Update ios version

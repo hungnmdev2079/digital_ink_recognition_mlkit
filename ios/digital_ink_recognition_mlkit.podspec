@@ -15,10 +15,10 @@ A new Flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'GoogleMLKit/DigitalInkRecognition', '~> 5.0.0'
+  s.dependency 'GoogleMLKit/DigitalInkRecognition', '~> 8.0.0'
 
-  s.platform = :ios, '13.0'
-  s.ios.deployment_target = '13.0'
+  s.platform = :ios, '15.5'
+  s.ios.deployment_target = '15.5'
   s.static_framework = true
 
   s.pod_target_xcconfig = {
