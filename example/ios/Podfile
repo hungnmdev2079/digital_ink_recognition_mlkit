@@ -37,7 +37,7 @@ target 'Runner' do
   end
 end
 
-$iOSVersion = '13.0'
+$iOSVersion = '15.5'
 
 post_install do |installer|
   installer.pods_project.build_configurations.each do |config|

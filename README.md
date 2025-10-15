@@ -31,12 +31,12 @@ Go to Project > Runner > Building Settings > Excluded Architectures > Any SDK > 
 Your Podfile should look like this:
 
 ```ruby
-platform :ios, '12.0'  # or newer version
+platform :ios, '15.5'  
 
 ...
 
 # add this line:
-$iOSVersion = '12.0'  # or newer version
+$iOSVersion = '15.5' 
 
 post_install do |installer|
   # add these lines:
@@ -59,13 +59,13 @@ post_install do |installer|
 end
 ```
 
-Notice that the minimum `IPHONEOS_DEPLOYMENT_TARGET` is 12.0, you can set it to something newer but not older.
+Notice that the minimum `IPHONEOS_DEPLOYMENT_TARGET` is 15.5, you can set it to something newer but not older.
 
 ### Android
 
-- minSdkVersion: 21
-- targetSdkVersion: 33
-- compileSdkVersion: 33
+- minSdkVersion: 24
+- targetSdkVersion: 36
+- compileSdkVersion: 36
 
 ## Usage
 
