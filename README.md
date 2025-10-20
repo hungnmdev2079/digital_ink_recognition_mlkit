@@ -137,6 +137,14 @@ final List<RecognitionCandidate> candidates = await digitalInkRecognizer.recogni
 
 ```
 
+#### Check if model is downloaded
+```dart
+final bool isDownloaded = await digitalInkRecognizer.isModelDownloaded();
+```
+
+Returns true if the model for the given languageCode is already downloaded on the device.
+Returns false if the model has not been downloaded yet.
+
 #### Release resources with `close()`
 
 ```dart

@@ -103,6 +103,10 @@ class _DigitalInkViewState extends State<DigitalInkView> {
                     onPressed: _deleteModel,
                     child: const Icon(Icons.delete),
                   ),
+                  ElevatedButton(
+                    onPressed: _checkModel,
+                    child: const Icon(Icons.question_mark_sharp),
+                  ),
                 ],
               ),
             ),
@@ -201,11 +205,21 @@ class _DigitalInkViewState extends State<DigitalInkView> {
   }
 
   Future<void> _deleteModel() async {
-    _digitalInkRecognizer.deleteModel().then((value) => value ? 'success' : 'failed');
+    _digitalInkRecognizer.deleteModel().then((value) {
+      print("deleteModel: $value");
+    });
   }
 
   Future<void> _downloadModel() async {
-    _digitalInkRecognizer.downLoadModel().then((value) => value ? 'success' : 'failed');
+    _digitalInkRecognizer.downLoadModel().then((value) {
+      print("downloadModel: $value");
+    });
+  }
+
+  Future<void> _checkModel() async {
+    _digitalInkRecognizer.isModelDownloaded().then((value) {
+      print("isDownloaded: $value");
+    });
   }
 
   Future<void> _recogniseText() async {

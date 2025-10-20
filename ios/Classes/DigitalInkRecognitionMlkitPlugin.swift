@@ -8,6 +8,7 @@ public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
     let CLOSE = "vision#closeDigitalInkRecognizer"
     let DOWNLOAD = "vision#downLoadModels"
     let DELETE = "vision#deleteModels"
+    let CHECK   = "vision#isModelDownloaded"
     
     var instances = [String: DigitalInkRecognizer]()
     
@@ -28,10 +29,13 @@ public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
         case DELETE:
             deleteModel(call, result: result)
         case CLOSE:
-            if let uid = call.arguments as? String {
+            if let args = call.arguments as? [String: Any],
+               let uid = args["id"] as? String {
                 instances.removeValue(forKey: uid)
             }
             result(nil)
+        case CHECK:
+            isModelDownloaded(call, result: result)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -107,9 +111,8 @@ public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
                 
             })
             
-            
-            
-            
+        } else {
+            result(FlutterError(code: "ModelNotDownloaded", message: "Model has not been downloaded yet", details: nil))
         }
     }
     func processRecognitionResult(_ recognitionResult: DigitalInkRecognitionResult?, error: Error?, result: FlutterResult) {
@@ -204,5 +207,20 @@ public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
             result(true)
         }
         
+    }
+    
+    private func isModelDownloaded(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let args = call.arguments as? [String: Any],
+              let modelTag = args["model"] as? String else {
+            result(FlutterError(code: "InvalidArguments", message: "Invalid arguments", details: nil))
+            return
+        }
+        guard let identifier = DigitalInkRecognitionModelIdentifier(forLanguageTag: modelTag) else {
+            result(FlutterError(code: "InvalidModelIdentifier", message: "Invalid model identifier", details: nil))
+            return
+        }
+        let model = DigitalInkRecognitionModel(modelIdentifier: identifier)
+        let isDownloaded = ModelManager.modelManager().isModelDownloaded(model)
+        result(isDownloaded) // true/false
     }
 }

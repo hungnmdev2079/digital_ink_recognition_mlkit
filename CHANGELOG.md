@@ -21,3 +21,7 @@
 ## 0.0.8
 
 * Update README
+
+## 0.0.9
+
+* Added new method isModelDownloaded() : Allows checking whether a specific Digital Ink model is already downloaded on the device.

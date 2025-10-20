@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// A class to perform handwriting recognition on digital ink.
@@ -7,8 +8,7 @@ import 'package:flutter/services.dart';
 /// Digital ink is the vector representation of what a user has written.
 /// It is composed of a sequence of strokes, each being a sequence of touch points (coordinates and timestamp).
 class DigitalInkRecognizer {
-  static const MethodChannel _channel =
-      MethodChannel('digital_ink_recognition_mlkit');
+  static const MethodChannel _channel = MethodChannel('digital_ink_recognition_mlkit');
 
   /// Refers to language that is being processed.
   //  Note that model should be a BCP 47 language tag from https://developers.google.com/ml-kit/vision/digital-ink-recognition/base-models?hl=en#text
@@ -23,10 +23,8 @@ class DigitalInkRecognizer {
 
   /// Performs a recognition of the text written on screen.
   /// It takes an instance of [Ink] which refers to the user input as a list of [Stroke].
-  Future<List<RecognitionCandidate>> recognize(Ink ink,
-      {DigitalInkRecognitionContext? context}) async {
-    final result = await _channel
-        .invokeMethod('vision#startDigitalInkRecognizer', <String, dynamic>{
+  Future<List<RecognitionCandidate>> recognize(Ink ink, {DigitalInkRecognitionContext? context}) async {
+    final result = await _channel.invokeMethod('vision#startDigitalInkRecognizer', <String, dynamic>{
       'id': id,
       'ink': ink.toJson(),
       'context': context?._isValid == true ? context?.toJson() : null,
@@ -43,20 +41,42 @@ class DigitalInkRecognizer {
   }
 
   Future<bool> downLoadModel() async {
-    final result = await _channel.invokeMethod('vision#downLoadModels',
-        <String, dynamic>{'id': id, 'model': languageCode});
+    final result =
+        await _channel.invokeMethod('vision#downLoadModels', <String, dynamic>{'id': id, 'model': languageCode});
     return result;
   }
 
   Future<bool> deleteModel() async {
-    final result = await _channel.invokeMethod('vision#deleteModels',
-        <String, dynamic>{'id': id, 'model': languageCode});
+    final result =
+        await _channel.invokeMethod('vision#deleteModels', <String, dynamic>{'id': id, 'model': languageCode});
     return result;
   }
 
+  /// Checks if the model for [languageCode] has been downloaded on device.
+  Future<bool> isModelDownloaded({String? languageCode}) async {
+    try {
+      final result = await _channel.invokeMethod<bool>(
+        'vision#isModelDownloaded',
+        <String, dynamic>{'model': languageCode ?? this.languageCode},
+      );
+      return result ?? false;
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print("isModelDownloaded Error: $e");
+      }
+      return false;
+    }
+  }
+
+  /// Ensure model exists: download if needed, then return whether it’s available.
+  Future<bool> ensureModel() async {
+    final hasModel = await isModelDownloaded();
+    if (hasModel) return true;
+    return await downLoadModel();
+  }
+
   /// Closes the recognizer and releases its resources.
-  Future<void> close() =>
-      _channel.invokeMethod('vision#closeDigitalInkRecognizer', {'id': id});
+  Future<void> close() => _channel.invokeMethod('vision#closeDigitalInkRecognizer', {'id': id});
 }
 
 /// Information about the context in which an ink has been drawn.
@@ -167,8 +187,7 @@ class RecognitionCandidate {
   RecognitionCandidate({required this.text, required this.score});
 
   /// Returns an instance of [RecognitionCandidate] from a given [json].
-  factory RecognitionCandidate.fromJson(Map<dynamic, dynamic> json) =>
-      RecognitionCandidate(
+  factory RecognitionCandidate.fromJson(Map<dynamic, dynamic> json) => RecognitionCandidate(
         text: json['text'],
         score: json['score'],
       );

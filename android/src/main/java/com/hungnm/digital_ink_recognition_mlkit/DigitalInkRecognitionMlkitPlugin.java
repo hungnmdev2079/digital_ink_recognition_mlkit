@@ -37,6 +37,8 @@ public class DigitalInkRecognitionMlkitPlugin implements FlutterPlugin, MethodCa
   private static final String CLOSE = "vision#closeDigitalInkRecognizer";
   private static final String DOWNLOAD = "vision#downLoadModels";
   private static final String DELETE = "vision#deleteModels";
+  private static final String CHECK = "vision#isModelDownloaded";
+
   private MethodChannel channel;
   private final Map<String, DigitalInkRecognizer> instances = new HashMap<>();
 
@@ -64,6 +66,9 @@ public class DigitalInkRecognitionMlkitPlugin implements FlutterPlugin, MethodCa
       case DELETE:
         deleteModel(call, result);
         break;
+       case CHECK:
+         isModelDownloaded(call, result);
+         break;
       default:
         result.notImplemented();
         break;
@@ -209,5 +214,14 @@ public class DigitalInkRecognitionMlkitPlugin implements FlutterPlugin, MethodCa
       return null;
     }
     return DigitalInkRecognitionModel.builder(modelIdentifier).build();
+  }
+
+   private void isModelDownloaded(MethodCall call, final MethodChannel.Result result) {
+     String tag = call.argument("model");
+     DigitalInkRecognitionModel model = getModel(tag, result);
+     if (model == null) return;
+     remoteModelManager.isModelDownloaded(model)
+         .addOnSuccessListener(result::success)
+         .addOnFailureListener(e -> result.error("Check Error", e.toString(), null));
   }
 }
