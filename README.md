@@ -18,7 +18,7 @@ A Flutter plugin to use [Google's ML Kit Digital Ink Recognition](https://develo
 
 ### iOS
 
-- Minimum iOS Deployment Target: 12.0
+- Minimum iOS Deployment Target: 15.5
 - Xcode 13.2.1 or newer
 - Swift 5
 - ML Kit does not support 32-bit architectures (i386 and armv7). ML Kit does support 64-bit architectures (x86_64 and arm64). Check this [list](https://developer.apple.com/support/required-device-capabilities/) to see if your device has the required device capabilities. More info [here](https://developers.google.com/ml-kit/migration/ios).
@@ -60,6 +60,25 @@ end
 ```
 
 Notice that the minimum `IPHONEOS_DEPLOYMENT_TARGET` is 15.5, you can set it to something newer but not older.
+
+#### Apple Silicon iOS Simulator (iOS 26+)
+
+Google's ML Kit pods do not currently ship a native `arm64-iphonesimulator` slice. On Apple Silicon Macs with an iOS 26+ simulator, enable this plugin's opt-in compatibility helper by adding the following near the top of your iOS `Podfile`, after Flutter's `podhelper`:
+
+```ruby
+require File.expand_path(
+  '.symlinks/plugins/digital_ink_recognition_mlkit/ios/scripts/apple_silicon_simulator',
+  __dir__,
+)
+```
+
+Then add this call at the end of the existing `post_install` block:
+
+```ruby
+digital_ink_mlkit_apple_silicon_simulator_patch(installer)
+```
+
+Run `pod install` again. The helper relabels the ML Kit arm64 binary slice for the current build target, so the same Pods installation works for both Apple Silicon simulators and physical devices. It does not add another Flutter or ML Kit plugin dependency.
 
 ### Android
 
@@ -150,5 +169,3 @@ Returns false if the model has not been downloaded yet.
 ```dart
 digitalInkRecognizer.close();
 ```
-
-

@@ -1,3 +1,11 @@
+## 0.1.0
+
+* Migrate Android implementation from Java to Kotlin.
+* Confirm and align the iOS Swift implementation with the latest upstream plugin.
+* Bump Android compileSdk to 36 for AGP 9 compatibility.
+* Enable opt-in support for Apple Silicon simulators on iOS 26+.
+* Keep direct native Digital Ink Recognition dependencies without depending on other ML Kit Flutter plugins.
+
 ## 0.0.1
 
 * TODO: Describe initial release.

@@ -24,12 +24,15 @@ def flutter_root
 end
 
 require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+require File.expand_path(
+  '.symlinks/plugins/digital_ink_recognition_mlkit/ios/scripts/apple_silicon_simulator',
+  __dir__,
+)
 
 flutter_ios_podfile_setup
 
 target 'Runner' do
   use_frameworks!
-  use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
@@ -54,4 +57,6 @@ post_install do |installer|
       end
     end
   end
+
+  digital_ink_mlkit_apple_silicon_simulator_patch(installer)
 end

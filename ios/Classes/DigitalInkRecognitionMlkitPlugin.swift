@@ -1,7 +1,8 @@
 import Flutter
-import UIKit
+import MLKitCommon
 import MLKitDigitalInkRecognition
 
+@objc
 public class DigitalInkRecognitionMlkitPlugin: NSObject, FlutterPlugin {
     
     let START = "vision#startDigitalInkRecognizer"
